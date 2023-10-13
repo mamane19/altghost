@@ -185,13 +185,22 @@ Here are some of the commands you can use to manage your Ghost blog:
 ``` 
 
 **Delete Blog**  
---> If for some reasons you want to completely delete your blog. This will wipe everything at once. Your blog, your cloudflare subdomain...etc
+--> If for some reasons you want to completely delete your blog. This will wipe everything at once. Your blog, your cloudflare subdomain...etc  
+For delete if you've gone the route of having multi blogs with each one in its own folder, you might need to uncomment the following in the `setup.sh` file
+```bash
+     # if [ -d "$2" ]; then
+     #    cd $2
+     ...
+     # else
+     #   echo "Blog not found"
+     #   exit 1
+```
 ```bash
      ./setup.sh deleteblog ${subdomain_value}
 ``` 
 
 **Delete Ghost**  
---> This will keep your existing infrastructure but will only delete the ghost installation. Meaning the ghost containers and images created by the tf script. This can allow you to rerun the installation script alone to install ghost fresh in your already created VM
+--> This will keep your existing infrastructure but will only delete the ghost installation. Meaning the ghost containers and images created by the tf script. This can allow you to rerun the installation script alone to install ghost fresh in your already created VM.
 ```bash
      ./setup.sh ghostdelete 
 ``` 
