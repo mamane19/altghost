@@ -1,0 +1,14 @@
+// we want to start an existing ec2 instance
+resource "null_resource" "start_server" {
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+ 
+  provisioner "local-exec" {
+    on_failure  = fail
+    interpreter = ["/bin/bash", "-c"]
+    command     = <<EOT
+        aws ec2 start-instances --instance-ids ${aws_instance.myapp-server.id}
+     EOT
+  }
+}

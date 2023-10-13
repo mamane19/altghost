@@ -1,0 +1,25 @@
+// we want to check the consumed storage of the user's server
+resource "null_resource" "storage_check" {
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+
+  connection {
+    type        = "ssh"
+    host        = aws_instance.myapp-server.public_ip
+    user        = "ubuntu"
+    private_key = file("tf-key-pair.pem")
+  }
+
+  provisioner "file" {
+    source      = "setup.sh"
+    destination = "setup.sh"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo chmod +x setup.sh",
+      "./setup.sh storage ${aws_instance.myapp-server.tags.Name}",
+    ]
+  }
+}

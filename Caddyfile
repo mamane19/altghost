@@ -1,0 +1,3 @@
+<domain> {
+  reverse_proxy ghost:2368
+}

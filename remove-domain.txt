@@ -1,0 +1,25 @@
+variable "domain_name" {}
+resource "null_resource" "remove_domain" {
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+
+  connection {
+    type        = "ssh"
+    host        = aws_instance.myapp-server.public_ip
+    user        = "ubuntu"
+    private_key = file("tf-key-pair.pem")
+  }
+
+  provisioner "file" { 
+    source      = "setup.sh"
+    destination = "setup.sh"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo chmod +x setup.sh",
+      "./setup.sh removedomain ${var.newdomain_name} ${var.domain_name}",
+    ]
+  }
+}

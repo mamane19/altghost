@@ -1,0 +1,4 @@
+docker-compose -f docker-compose.prod.yml restart caddy
+
+docker-compose -f docker-compose.prod.yml up -d --build
+

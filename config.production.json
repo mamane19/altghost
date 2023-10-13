@@ -1,0 +1,36 @@
+{
+  "url": "https://<domain>",
+  "server": {
+    "port": 2368,
+    "host": "0.0.0.0"
+  },
+  "database": {
+    "client": "mysql",
+    "connection": {
+      "host": "db",
+      "user": "ghost",
+      "password": "password",
+      "database": "ghost_production"
+    }
+  },
+  "mail": {
+    "transport": "SMTP",
+    "options": {
+      "service": "SendGrid",
+      "host": "smtp.sendgrid.net",
+      "port": 587,
+      "secure": true,
+      "auth": {
+        "user": "apikey",
+        "pass": "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"
+      }
+    }
+  },
+  "logging": {
+    "transports": ["file", "stdout"]
+  },
+  "process": "systemd",
+  "paths": {
+    "contentPath": "/var/lib/ghost/content"
+  }
+}

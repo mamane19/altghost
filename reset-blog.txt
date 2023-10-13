@@ -1,0 +1,24 @@
+resource "null_resource" "reset_blog" {
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+
+  connection {
+    type        = "ssh"
+    host        = aws_instance.myapp-server.public_ip
+    user        = "ubuntu"
+    private_key = file("tf-key-pair.pem")
+  }
+
+  provisioner "file" {
+    source      = "setup.sh"
+    destination = "setup.sh"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo chmod +x setup.sh",
+      "./setup.sh reset",
+    ]
+  }
+}

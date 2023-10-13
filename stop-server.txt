@@ -1,0 +1,14 @@
+// we want to stop an existing ec2 instance
+resource "null_resource" "stop_server" {
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+ 
+  provisioner "local-exec" {
+    on_failure  = fail
+    interpreter = ["/bin/bash", "-c"]
+    command     = <<EOT
+        aws ec2 stop-instances --instance-ids ${aws_instance.myapp-server.id}
+     EOT
+  }
+}
