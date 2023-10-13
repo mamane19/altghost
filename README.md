@@ -45,8 +45,8 @@ This project leverages Terraform and Shell scripts to provision a VM, set up a s
 1. **Clone the repository:**
 
     ```bash
-    git clone git@github.com:Alt-Ghost/altghost-infra.git
-    cd altghost-infra
+    git clone git@github.com:mamane19/altghost.git
+    cd altghost
     ```
 
 2. **Generate and Place Your AWS Key Pair:**
