@@ -95,7 +95,7 @@ If you want that you can still do that by uploading your files to an s3 bucket a
     aws s3 cp s3://altghost-infra/scripts/ ./ --no-sign-request --recursive # The no sign request is because my bucket is public.  
      # You don't wanna do this if you ahve your secrets in those scripts :)
 ```
-This modification will not create a folder and will proceed with the current directory content. In the created folder based on your subdomain_value/blogName, the same files that are in this repository are stored in the S3 bucket and pulled into the created folder once you run the command to create the blog.  
+This alteration will generate a directory named either after your blog name or `subdomain_value`. Upon executing the command to create the blog, the directory corresponding to your subdomain_value/blogName will be populated with the files stored in the S3 bucket.  
 
 
   
@@ -202,7 +202,8 @@ Here are some of the commands you can use to manage your Ghost blog:
 
 **Delete Blog**  
 --> If for some reasons you want to completely delete your blog. This will wipe everything at once. Your blog, your cloudflare subdomain...etc  
-For delete if you've gone the route of having multi blogs with each one in its own folder, you might need to uncomment the following in the `setup.sh` file
+
+NOTE: For delete if you've gone the route of having multi blogs with each one in its own folder, you might need to uncomment the following in the `setup.sh` file
 ```bash
      # if [ -d "$2" ]; then
      #    cd $2
