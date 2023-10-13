@@ -21,8 +21,8 @@
       "port": 587,
       "secure": true,
       "auth": {
-        "user": "apikey",
-        "pass": "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"
+        "user": "",
+        "pass": ""
       }
     }
   },
