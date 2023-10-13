@@ -113,6 +113,23 @@ Modify the docker-compose.yaml file to uncomment the following:
       mail__options__auth__pass: "${MAIL_PASSWORD}"
 ```
 
+Or you can simply add these to the `config.production.json` file for ghost to pick them up automatically once the images are up.
+```json
+      "mail": {
+    "transport": "SMTP",
+    "options": {
+      "service": "SendGrid",
+      "host": "smtp.sendgrid.net",
+      "port": 587,
+      "secure": true,
+      "auth": {
+        "user": "",
+        "pass": ""
+      }
+    }
+  },
+```
+
 If this step is skipped, you can still configure email later.
 
 <br>
