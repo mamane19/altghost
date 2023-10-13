@@ -23,14 +23,13 @@ This project leverages Terraform and Shell scripts to provision a VM, set up a s
 
 ### Used Stack
 
-1. Ubuntu 20.04 LTS
-2. Terraform (for creating infrastructure)
-3. Shell (for running the infrastructure)
-4. Ghost CMS latest docker image (alpine)
-5. MySQL 8 docker image
-6. Caddy 2 docker image (alpine)
-7. Watchtower docker image (to auto-update containers)
-8. Docker-compose
+1. Terraform (for creating infrastructure)
+2. Shell (for running the infrastructure)
+3. Ghost CMS latest docker image (alpine)
+4. MySQL 8 docker image
+5. Caddy 2 docker image (alpine)
+6. Watchtower docker image (to auto-update containers)
+7. Docker-compose
 
 ## 🛠 Prerequisites
 
