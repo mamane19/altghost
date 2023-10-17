@@ -10,21 +10,24 @@ This project leverages Terraform and Shell scripts to provision a VM, set up a s
 - **Scalable**: Choose from different hosting plans to suit your needs. You can also upgrade or downgrade your storage.
 - **Automated Updates**: Update your Ghost instance effortlessly.
 - **Domain Management**: Update or remove domain settings with ease.
-- **Isolated Hosting**: Each blog is hosted in its own EC2 instance with dedicated storage based on the chosen plan.
-- **Multi-Blog Management**: Manage multiple blogs on the same AWS account with isolated environments for each.
+- **Isolated Hosting**: Each blog can be hosted in its own EC2 instance with dedicated storage based on the chosen plan.
+- **SSL Headache Free**: Automatic SSL certificate generation for each blog and automatic renewal.
 
 ## Demo
 [![Demo](./assets/demo.png)](./assets/demo.mp4)
 
 ### Used Stack
 
-1. Terraform (for creating infrastructure)
-2. Shell (for running the infrastructure)
-3. Ghost CMS latest docker image (alpine)
-4. MySQL 8 docker image
-5. Caddy 2 docker image (alpine)
-6. Watchtower docker image (to auto-update containers)
-7. Docker-compose
+1. Terraform (for creating infrastructure) 
+     > I used terraform because it's easy to use and it's a declarative language.
+2. Shell (for running the infrastructure) 
+     > I used shell because I wanted to run the commands on the VM itself and not on my local machine.You can still run the commands on your local machine if you want to.
+3. Ghost CMS latest docker image (alpine) --> For the blog
+4. MySQL 8 docker image --> For the database of ghost
+5. Caddy 2 docker image (alpine) --> For SSL and reverse proxy
+6. Watchtower docker image (alpine)
+     > For auto updating the docker images when new versions are released (no more manual updates)
+7. Docker-compose --> For running the docker images
 
 ## 🛠 Prerequisites
 
