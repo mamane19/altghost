@@ -14,7 +14,7 @@ This project leverages Terraform and Shell scripts to provision a VM, set up a s
 - **Multi-Blog Management**: Manage multiple blogs on the same AWS account with isolated environments for each.
 
 ## Demo
-<img src="./demo.gif" alt="demo" width="100%"/>  
+<img src="./assets/demo.mp4" alt="demo" width="100%"/>  
 
 ### Used Stack
 
@@ -70,7 +70,7 @@ This project leverages Terraform and Shell scripts to provision a VM, set up a s
 
 ---
 
-<img src="./demo.png" alt="demo" width="100%"/>
+<!-- <img src="./demo.png" alt="demo" width="100%"/> -->
 
 ### 3.1. Preparation Before Running the Setup Script:
 > Choose a plan based on your storage needs:
