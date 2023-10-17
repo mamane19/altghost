@@ -44,15 +44,6 @@ if [ "$1" == "reset" ]; then
   sudo docker-compose down && sudo docker volume rm $(sudo docker volume ls -q) && sudo docker-compose up -d && sudo docker image prune -f
 fi
 
-# check storage usage
-if [ "$1" == "storage" ]; then
-  df -h /dev/xvda1
-  # save the Use% in a variable
-  use=$(df -h /dev/xvda1 | awk '{print $5}' | sed 's/%//g')
-  # we save it in file and upload it to s3
-  echo $use% >$2-storage.txt
-  aws s3 cp $2-storage.txt s3://altghost-infra/$2-storage.txt --no-sign-request
-fi
 
 if [ "$1" == "setup" ]; then
   sudo apt-get update
@@ -132,9 +123,7 @@ if [ "$1" == domainremove ]; then
   >remoteexec.tf
 fi
 
-# Stop the container due to the following reasons:
-# 1. Customer is not using the service anymore.
-# 2. Customer has not paid for the service.
+# Stop the ec2 instance
 if [ "$1" == stopinstance ]; then
   echo "Stopping instance..."
   cd $2
@@ -144,9 +133,7 @@ if [ "$1" == stopinstance ]; then
   >localexec.tf
 fi
 
-# Restart the instance after the following reasons:
-# 1. Customer has paid for the service.
-# 2. Customer has changed the plan.
+# Restart the ec2 instance
 if [ "$1" == startinstance ]; then
   echo "Restarting instance..."
   cd $2
@@ -162,24 +149,6 @@ if [ "$1" == resetblog ]; then
   cp reset-blog.txt remoteexec.tf
   terraform apply -auto-approve -var="subdomain_value=${2}" -var="plan=${3}" 2>&1 | tee ../logs/$2-reset-blog.log
   >remoteexec.tf
-fi
-
-#check storage usage
-if [ "$1" == checkstorage ]; then
-  echo "Checking storage usage..."
-  cd $2
-  cp check-storage.txt remoteexec.tf
-  terraform apply -auto-approve -var="subdomain_value=${2}" -var="plan=${3}" #2>&1 | tee logs/check-storage.log
-  # we cat the usage file
-  # cat storage.txt
-  >remoteexec.tf
-fi
-
-# view storage usage
-if [ "$1" == viewstorage ]; then
-  echo "Viewing storage usage..."
-  cd $2
-  aws s3 cp s3://altghost-infra/$2-server-storage.txt ./ --no-sign-request
 fi
 
 # Delete VM and remove all containers and images created by terraform

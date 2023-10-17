@@ -39,10 +39,10 @@ This project leverages Terraform and Shell scripts to provision a VM, set up a s
 
 1. **Clone the repository:**
 
-    ```bash
-    git clone git@github.com:mamane19/altghost.git
-    cd altghost
-    ```
+```bash
+git clone git@github.com:mamane19/altghost.git
+cd altghost
+```
 
 2. **Generate and Place Your AWS Key Pair:**
 
@@ -52,21 +52,21 @@ This project leverages Terraform and Shell scripts to provision a VM, set up a s
 
     Update the `terraform` block in the `main.tf` file with your credentials:
 
-    ```terraform
-     provider "aws" {
-          region                  = "your-aws-region"
-          shared_credentials_file = "/path-to-your-aws-credentials" #Example for Ubuntu: /home/ubuntu/.aws/credentials
-     }
+```terraform
+provider "aws" {
+     region                  = "your-aws-region"
+     shared_credentials_file = "/path-to-your-aws-credentials" #Example for Ubuntu: /home/ubuntu/.aws/credentials
+}
 
-     provider "cloudflare" {
-          email   = "your-email"
-          api_key = "your-api-key"
-     }
+provider "cloudflare" {
+     email   = "your-email"
+     api_key = "your-api-key"
+}
 
-     data "cloudflare_zone" "dptools" {
-          name = "your-domain-name" # your domain... example: example.com
-     }
-    ```
+data "cloudflare_zone" "dptools" {
+     name = "your-domain-name" # your domain... example: example.com
+}
+```
 
 ---
 
@@ -84,13 +84,13 @@ The scripts and configurations are pulled from an S3 bucket. I did this because 
 By default I disabled multi blogs because I was initially pushing all the config files to S3 but didn't wanna do that for security reasons.  
 If you want that you can still do that by uploading your files to an s3 bucket and uncomment the following part in the `createblog` script within the `setup.sh` file: 
 ```bash
-    # we create the folder
-    mkdir $2
-    # we change the directory to the new folder
-    cd $2
-    # we pull the s3 bucket content
-    aws s3 cp s3://altghost-infra/scripts/ ./ --no-sign-request --recursive # The no sign request is because my bucket is public.  
-     # You don't wanna do this if you ahve your secrets in those scripts :)
+# we create the folder
+mkdir $2
+# we change the directory to the new folder
+cd $2
+# we pull the s3 bucket content
+aws s3 cp s3://altghost-infra/scripts/ ./ --no-sign-request --recursive # The no sign request is because my bucket is public.  
+# You don't wanna do this if you ahve your secrets in those scripts :)
 ```
 This alteration will generate a directory named either after your blog name or `subdomain_value`. Upon executing the command to create the blog, the directory corresponding to your subdomain_value/blogName will be populated with the files stored in the S3 bucket.  
 
@@ -101,29 +101,29 @@ To enable transactional emails from the get-go, use the .env.example file, copy 
 
 Modify the docker-compose.yaml file to uncomment the following:
 ```yaml
-      mail__transport: "${MAIL_TRANSPORT}"
-      mail__options__host: "${MAIL_HOST}"
-      mail__options__port: "${MAIL_PORT}"
-      mail__options__secureConnection: "${MAIL_SECURE_CONNECTION}"
-      mail__options__auth__user: "${MAIL_USER}"
-      mail__options__auth__pass: "${MAIL_PASSWORD}"
+mail__transport: "${MAIL_TRANSPORT}"
+mail__options__host: "${MAIL_HOST}"
+mail__options__port: "${MAIL_PORT}"
+mail__options__secureConnection: "${MAIL_SECURE_CONNECTION}"
+mail__options__auth__user: "${MAIL_USER}"
+mail__options__auth__pass: "${MAIL_PASSWORD}"
 ```
 
 Or you can simply add these to the `config.production.json` file for ghost to pick them up automatically once the images are up.
 ```json
-      "mail": {
-    "transport": "SMTP",
-    "options": {
-      "service": "SendGrid",
-      "host": "smtp.sendgrid.net",
-      "port": 587,
-      "secure": true,
-      "auth": {
-        "user": "",
-        "pass": ""
-      }
-    }
-  },
+"mail": {
+  "transport": "SMTP",
+     "options": {
+       "service": "SendGrid",
+       "host": "smtp.sendgrid.net",
+       "port": 587,
+       "secure": true,
+       "auth": {
+       "user": "",
+       "pass": ""
+       }
+     }
+},
 ```
 
 If this step is skipped, you can still configure email later.
@@ -132,9 +132,9 @@ If this step is skipped, you can still configure email later.
 
 4. **Run the Setup Script:**
 
-    ```bash
-    ./setup.sh createblog ${subdomain_value} ${plan} ${domain_name}
-    ```  
+```bash
+./setup.sh createblog ${subdomain_value} ${plan} ${domain_name}
+```  
 Example: ./script.sh createblog blog basic blog.neopress.io
 > blog -- the name of your blog/subdomain_value  
 > basic -- the plan (8gb of storage)  
@@ -156,7 +156,7 @@ Here are some of the commands you can use to manage your Ghost blog:
 **Upgrade Blog** 
 --> This is basically for upgrading to a greater storage in case you need more storage.
 ```bash
-     ./setup.sh upgradeblog ${subdomain_value} ${plan} 
+./setup.sh upgradeblog ${subdomain_value} ${plan} 
 ```  
 
 **Update Domain**  
@@ -165,19 +165,19 @@ Here are some of the commands you can use to manage your Ghost blog:
 - Create a CNAME Record and point it to the currently pointing subdomain you have your blog running at
 - 
 ```bash
-     ./setup.sh domainupdate ${subdomain_value} ${plan} ${domain_name} ${newdomain_name} 
+./setup.sh domainupdate ${subdomain_value} ${plan} ${domain_name} ${newdomain_name} 
 ``` 
 
 **Remove Domain**  
 --> This is basically when you want remove the custom domain you've set up to get back to the default subdomain you've set when you first installed ghost.
 ```bash
-     ./setup.sh domainremove ${subdomain_value} ${plan} ${domain_name} ${newdomain_name} 
+./setup.sh domainremove ${subdomain_value} ${plan} ${domain_name} ${newdomain_name} 
 ``` 
 
 **Stop Instance**  
 --> If for some reasons you want to stop the ec2 instance that's running your ghost blog
 ```bash
-     ./setup.sh stopinstance ${subdomain_value} ${plan} 
+./setup.sh stopinstance ${subdomain_value} ${plan} 
 ``` 
 
 **Start Instance**  --> Restart your instance after stopping it. Note that I used elastic IPs so your data will not be lost.
@@ -188,13 +188,7 @@ Here are some of the commands you can use to manage your Ghost blog:
 **Reset Blog**  
 --> If for some reasons you wanna start fresh and want to reset your blog. This will wipe all your data and give you a clean fresh ghost blog.
 ```bash
-     ./setup.sh resetblog ${subdomain_value} ${plan} 
-``` 
-
-**Check Storage Usage**  
---> WIP: You can see the storage but I am looking at a nicer way to display it.
-```bash
-     ./setup.sh checkstorage ${subdomain_value} ${plan} 
+./setup.sh resetblog ${subdomain_value} ${plan} 
 ``` 
 
 **Delete Blog**  
@@ -202,19 +196,19 @@ Here are some of the commands you can use to manage your Ghost blog:
 
 NOTE: For delete if you've gone the route of having multi blogs with each one in its own folder, you might need to uncomment the following in the `setup.sh` file
 ```bash
-     # if [ -d "$2" ]; then
-     #    cd $2
-     ...
-     # else
-     #   echo "Blog not found"
-     #   exit 1
+# if [ -d "$2" ]; then
+#    cd $2
+...
+# else
+#   echo "Blog not found"
+#   exit 1
 ```
 ```bash
-     ./setup.sh deleteblog ${subdomain_value}
+./setup.sh deleteblog ${subdomain_value}
 ``` 
 
 **Delete Ghost**  
 --> This will keep your existing infrastructure but will only delete the ghost installation. Meaning the ghost containers and images created by the tf script. This can allow you to rerun the installation script alone to install ghost fresh in your already created VM.
 ```bash
-     ./setup.sh ghostdelete 
+./setup.sh ghostdelete 
 ``` 
