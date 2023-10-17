@@ -182,7 +182,7 @@ if [ "$1" == createblog ]; then
     # # we change the directory to the new folder
     # cd $2
     # # we pull the s3 bucket content
-    # aws s3 cp s3://altghost-infra/scripts/ ./ --no-sign-request --recursive
+    # aws s3 cp s3:<your-bucket> ./ --no-sign-request --recursive
     # we initialize the terraform
     terraform init -upgrade
     # we create the VM and keep the logs in a file(server.log)

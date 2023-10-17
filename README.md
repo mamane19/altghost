@@ -93,7 +93,7 @@ mkdir $2
 cd $2
 # we pull the s3 bucket content
 aws s3 cp s3://<your-bucket> ./ --no-sign-request --recursive # The no sign request is because my bucket is public.  
-# You don't wanna do this if you ahve your secrets in those scripts :)
+# You don't wanna do this if you have your secrets in those scripts :)
 ```
 This alteration will generate a directory named either after your blog name or `subdomain_value`. Upon executing the command to create the blog, the directory corresponding to your subdomain_value/blogName will be populated with the files stored in the S3 bucket.  
 
