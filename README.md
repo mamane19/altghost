@@ -14,10 +14,7 @@ This project leverages Terraform and Shell scripts to provision a VM, set up a s
 - **Multi-Blog Management**: Manage multiple blogs on the same AWS account with isolated environments for each.
 
 ## Demo
-<video width="100%" controls>
-  <source src="./assets/demo.mp4" alt="Demo" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+[![Demo](./assets/demo.png)](./assets/demo.mp4)
 
 ### Used Stack
 
